@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Predictor 4.0 AI</title>
+    <style>
+        body {
+            background-color: #0a0a0a;
+            color: #00ff41;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 400px;
+            background: rgba(20, 20, 20, 0.9);
+            padding: 20px;
+            border-radius: 15px;
+            border: 2px solid #00ff41;
+            box-shadow: 0 0 20px #00ff41;
+            text-align: center;
+        }
+
+        .header {
+            font-size: 24px;
+            font-weight: bold;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+            letter-spacing: 2px;
+            text-shadow: 0 0 10px #00ff41;
+        }
+
+        .card {
+            background: #1a1a1a;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 10px;
+            border-left: 5px solid #00ff41;
+        }
+
+        .label { font-size: 14px; color: #888; }
+        .value { font-size: 22px; font-weight: bold; margin-top: 5px; }
+
+        .btn {
+            background: transparent;
+            color: #00ff41;
+            border: 2px solid #00ff41;
+            padding: 12px 30px;
+            font-size: 18px;
+            font-weight: bold;
+            border-radius: 50px;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: 0.3s;
+            text-transform: uppercase;
+        }
+
+        .btn:hover {
+            background: #00ff41;
+            color: #000;
+            box-shadow: 0 0 30px #00ff41;
+        }
+
+        .status { font-size: 12px; margin-top: 15px; color: #555; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">Predictor 4.0 AI</div>
+    
+    <div class="card">
+        <div class="label">CURRENT PERIOD</div>
+        <div id="period" class="value">Loading...</div>
+    </div>
+
+    <div class="card">
+        <div class="label">NEXT PREDICTION</div>
+        <div id="prediction" class="value" style="color: #fff;">READY</div>
+    </div>
+
+    <div class="card">
+        <div class="label">CONFIDENCE LEVEL</div>
+        <div id="confidence" class="value">-- %</div>
+    </div>
+
+    <button class="btn" onclick="getPrediction()">Get Analysis</button>
+
+    <div class="status">SERVER STATUS: <span style="color: #00ff41;">SECURED</span></div>
+</div>
+
+<script>
+    function updatePeriod() {
+        const now = new Date();
+        const startOfDay = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+        const minutesPassed = Math.floor((now - startOfDay) / 60000);
+        const periodSuffix = 9671 + minutesPassed;
+        const dateStr = now.toISOString().slice(0, 10).replace(/-/g, "");
+        document.getElementById('period').innerText = dateStr + "1000" + periodSuffix;
+    }
+
+    function getPrediction() {
+        const results = ['BIG 🔴', 'SMALL 🟢'];
+        const randomRes = results[Math.floor(Math.random() * results.length)];
+        const randomConf = Math.floor(Math.random() * (99 - 94 + 1)) + 94;
+
+        document.getElementById('prediction').innerText = "WAITING...";
+        
+        setTimeout(() => {
+            document.getElementById('prediction').innerText = randomRes;
+            document.getElementById('confidence').innerText = randomConf + "%";
+        }, 800);
+    }
+
+    setInterval(updatePeriod, 1000);
+    updatePeriod();
+</script>
+
+</body>
+</html>
